@@ -10,7 +10,8 @@ unsigned long lastPress = 0;
 const unsigned long timeOutDisplay = 25000;
 const unsigned long timeOutButton = 2500;
 int msgOneState = 1;
-char* songs[] = {"song1","song2","song3","song4","song5"};
+char* songFiles[] = {"O_Tannenbaum","Santa_Baby","White_Christmas","O_Tannenbaum","O_Tannenbaum"};
+char* songTitles[] = {"O Tannenbaum","Santa Baby","White Christmas","O Tannenbaum","O Tannenbaum"};
 int currentSong;
 
 TKLCD_Local lcd = TKLCD_Local();
@@ -20,7 +21,7 @@ void setup() {
   //setTime(15,0,0,21,9,2013);
   lcd.begin();
   Serial1.begin(9600);
-  Serial1.println("Jukebox ready"); 
+  Serial1.println("msg:Jukebox ready"); 
 }
 
 void loop() {
@@ -35,7 +36,7 @@ void loop() {
       lcd.display();
       lcd.setBrightness(255);
       lcd.setCursor(0,0);
-      lcd.print(songs[currentSong]);
+      lcd.print(songTitles[currentSong]);
       lcd.setCursor(0,1);
       lcd.print("");
     }
@@ -47,7 +48,7 @@ void loop() {
     if ((millisLastPress) > timeOutButton || lastPress == 0) {
       lastPress = millis();
       currentSong = random(0,5);
-      Serial1.println(songs[currentSong]);
+      Serial1.println(songFiles[currentSong]);
       msgOneState = 1;
     }
   }
